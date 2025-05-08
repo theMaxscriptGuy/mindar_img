@@ -7,14 +7,30 @@
 <body>
     <a-scene mindar-image="imageTargetSrc: https://raw.githack.com/theMaxscriptGuy/mindar_img/main/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
         <a-assets>
-            <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" />
-            <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+            <a-assets>
+                <!-- Textures for PBR material -->
+                <img id="albedo" src="https://cdn.jsdelivr.net/gh/ambientCG/ambientCG-textures@main/Concrete/Concrete_001_COLOR.jpg" crossorigin="anonymous" />
+                <img id="normal" src="https://cdn.jsdelivr.net/gh/ambientCG/ambientCG-textures@main/Concrete/Concrete_001_NORMAL.jpg" crossorigin="anonymous" />
+                <img id="roughness" src="https://cdn.jsdelivr.net/gh/ambientCG/ambientCG-textures@main/Concrete/Concrete_001_ROUGHNESS.jpg" crossorigin="anonymous" />
+                <img id="metalness" src="https://cdn.jsdelivr.net/gh/ambientCG/ambientCG-textures@main/Concrete/Concrete_001_METALNESS.jpg" crossorigin="anonymous" />
+
+                <!-- Avatar model -->
+                <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+            </a-assets>
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
         <a-entity mindar-image-target="targetIndex: 0">
-            <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-            <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
+            <a-entity light="type: hemisphere; color: #ffffff; groundColor: #444444; intensity: 1"></a-entity>
+            <a-entity light="type: directional; intensity: 0.8" position="1 1 0.5"></a-entity>
+            <a-box position="0 0.5 0" depth="0.3" height="0.3" width="0.3"
+                   material="
+                   shader: standard;
+                   color: #8b4513;  <!-- Albedo color (brown) -->
+                 roughness: 0.5;  <!-- Roughness value (0 to 1) -->
+                 metalness: 0.8;  <!-- Metalness value (0 to 1) -->
+                 reflectivity: 0.5;">
+        </a-box>
         </a-entity>
     </a-scene>
 </body>
